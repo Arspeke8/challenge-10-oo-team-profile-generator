@@ -25,5 +25,4 @@ Engineer.prototype.getRole = function () {
     return "Engineer";
 }
 
-module.exports = Engineer;
-
+module.exports = Engineer
