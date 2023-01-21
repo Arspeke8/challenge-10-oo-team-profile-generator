@@ -23,13 +23,13 @@ const fs = require("fs");
 
 const questions = [];
 
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
-const Employee = require("./lib/Employee");
+const Manager = require("./assets/Manager");
+const Engineer = require("./assets/Engineer");
+const Intern = require("./assets/Intern");
+const Employee = require("./assets/Employee");
 
 
-const generateHTML = require("./src/generateHTML");
+// const generateHTML = require("./src/generateHTML");
 
 const team = [];
 
@@ -38,8 +38,6 @@ function init() {
     console.log("Please build your team");
     addManager();
 }
-
-const inquirer = require('inquirer');
 
 // team manager prompt
 inquirer
