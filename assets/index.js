@@ -21,12 +21,13 @@ THEN I exit the application, and the HTML is generated
 const inquirer = require("inquirer");
 const fs = require("fs");
 
-const questions = [];
+const generateHTML = require("./generateHTML");
 
 const Manager = require("./Manager");
 const Engineer = require("./Engineer");
 const Intern = require("./Intern");
-// const Employee = require("./Employee");
+
+// const employees = [];
 const team = [];
 
 function init() {
@@ -68,16 +69,11 @@ inquirer
       const manager = new Manager(answers.name, answers.employeeId, answers.email, answers.officeNumber);
       team.push(manager);
       addTeamMember();
-      
-
-
-    });
+          });
   };
-  
 
-    // team member prompt
-    function addTeamMember() {
-    inquirer
+  function addTeamMember() {
+    inquirer  
       .prompt([
         {
           type: 'list',
@@ -86,127 +82,100 @@ inquirer
           choices: ['Engineer', 'Intern', 'Finish Building Team'],
         },
       ])
-      .then((answers) => {
+      .then(answers => {
         switch (answers.memberType) {
           case 'Engineer':
-            // engineer prompt
-            inquirer
-              .prompt([
-                {
-                  type: 'input',
-                  name: 'name',
-                  message: 'Enter the engineer\'s name:',
-                },
-                {
-                  type: 'input',
-                  name: 'employeeId',
-                  message: 'Enter the engineer\'s employee ID:',
-                },
-                {
-                  type: 'input',
-                  name: 'email',
-                  message: 'Enter the engineer\'s email address:',
-                },
-                {
-                  type: 'input',
-                  name: 'githubUsername',
-                  message: 'Enter the engineer\'s GitHub username:',
-                },
-              ]);
-          
-              .then((answers) => {
-                const engineer = new Engineer(answers.name, answers.employeeId, answers.email, answers.githubUsername);
-                team.push(engineer);
-                addTeamMember();
-              });
-            };
-
+            addEngineer();
             break;
           case 'Intern':
-            // intern prompt
-            inquirer
-              .prompt([
-                {
-                  type: 'input',
-                  name: 'name',
-                  message: 'Enter the intern\'s name:',
-                },
-                {
-                  type: 'input',
-                  name: 'employeeId',
-                  message: 'Enter the intern\'s employee ID:',
-                },
-                {
-                  type: 'input',
-                  name: 'email',
-                  message: 'Enter the intern\'s email address:',
-                },
-                {
-                  type: 'input',
-                    name: 'school',
-                    message: 'Enter the intern\'s school:',
-                  },
-                ])
-                .then((answers) => {
-                // use the answers to create the intern object
-                const intern = new Intern(answers.name, answers.employeeId, answers.email, answers.school);
-                team.push(intern);
-                addTeamMember();
-                });
-
-                // add the intern to the team
-                // ...
-
-                // go back to the team member prompt
-                // ...
-              
-            // break;
-            // case 'Finish Building Team':
-            //     // finish building team
-            //     // ...
-            //     break;
-            // default:
-            //     console.log("Invalid team member type");
-            //     addTeamMember();
-            //     break;
- 
-
-
-   
-
- 
-  function generateHTML(Manager, team) {
-   
-}
-
-function writeToFile(fileName, data) {
-    fs.writeFile(fileName, data, function (err) {
-        if (err) {
-            return console.log(err);
+            addIntern();
+            break;
+            // default;
+          writeHTML();
+            break;
         }
+      });
+
+      const addEngineer = () =>{
+        return inquirer.prompt([
+            {
+                //Engineer's Name
+                type: 'input',
+                message: "What is the Engineer's name?",
+                name: 'name',
+            },
+            {
+                //Engineer's ID
+                type: 'input',
+                message: 'What is their employee id?',
+                name: 'id'
+            },
+            {
+                //Engineer's email
+                type: 'input',
+                message: 'What is their email address?',
+                name: 'email'
+            },
+            {
+                //Engineer's GitHub username
+                type: 'input',
+                message: 'What is their Github username?',
+                name: 'github'
+            }
+        ])
+        .then ((engineerInfo) =>{
+       const engineer= new Engineer(engineerInfo.name,engineerInfo.id,engineerInfo.email,engineerInfo.github) 
+    
+       team.push(engineer)
+    
+       addTeamMember()
+       })
+    }
+
+    const addIntern = () =>{
+      return inquirer.prompt([
+          {
+              //Intern's Name
+              type: 'input',
+              message: "What is the Intern's name?",
+              name: 'name',
+          },
+          {
+              //Intern's ID
+              type: 'input',
+              message: 'What is their employee id?',
+              name: 'id'
+          },
+          {
+              //Intern's email
+              type: 'input',
+              message: 'What is their email address?',
+              name: 'email'
+          },
+          {
+              //Intern's GitHub username
+              type: 'input',
+              message: 'What school to they attend?',
+              name: 'school'
+          }
+      ])
+      .then ((internInfo) =>{
+     
+     const intern= new Intern (internInfo.name,internInfo.id,internInfo.email,internInfo.school) 
+  
+     team.push(intern)
+  
+     addTeamMember()
+     })
+  }
+  }
+
+ addManager()
+
+  function writeHTML() {
+    fs.writeFile("./assets/webpage/index.html", generateHTML(team), (err) => {
+      if (err) throw err;
+      console.log("Team Profile Generated");
     });
-}
-
-// generate the HTML
-const html = generateHTML(Manager, team);
-// write the HTML to a file
-writeToFile('./manager.html', html);
-console.log("Team Profile is generated in team.html file")
-
-init();
-
-
-
-
+  }
     
-
-
-
-
-
-    
-
-
-
-
-
