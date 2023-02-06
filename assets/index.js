@@ -47,8 +47,10 @@ inquirer
  
       const manager = new Manager(answers.name, answers.employeeId, answers.email, answers.officeNumber);
       managerArray.push(manager);
+
       addTeamMember();
-          });
+      
+    });
   };
 
   function addTeamMember() {
@@ -62,7 +64,7 @@ inquirer
         },
       ])
       .then(answers => {
-        switch (answers.member) {
+        switch (answers.memberType) {
           case 'Engineer':
             addEngineer();
             break;
@@ -152,7 +154,7 @@ inquirer
  addManager()
 
 function writeHTML() {
-  fs.writeFile("./index.html", generateHTML(managerArray, team), (err) => {
+  fs.writeFile("./index.html", generateHTML(managerArray[0], team), (err) => {
     if (err) throw err;
     console.log("The file has been saved!");
   });
