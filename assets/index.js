@@ -6,6 +6,7 @@ const generateHTML = require("./generateHTML");
 const Manager = require("./Manager");
 const Engineer = require("./Engineer");
 const Intern = require("./Intern");
+const managerArray = [];
 const team = [];
 
 function init() {
@@ -45,7 +46,7 @@ inquirer
     // use the answers to create the team manager object
  
       const manager = new Manager(answers.name, answers.employeeId, answers.email, answers.officeNumber);
-      team.push(manager);
+      managerArray.push(manager);
       addTeamMember();
           });
   };
@@ -150,11 +151,10 @@ inquirer
 
  addManager()
 
-  function writeHTML() {
-    fs.writeFile("./index.html", generateHTML(team), (err) => {
-      if (err) throw err;
-      console.log("Team Profile Generated");
-    });
-  }
-    
+function writeHTML() {
+  fs.writeFile("./index.html", generateHTML(managerArray, team), (err) => {
+    if (err) throw err;
+    console.log("The file has been saved!");
+  });
+}
   // init();

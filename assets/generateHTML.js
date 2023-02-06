@@ -61,8 +61,6 @@ const generateHTML = (manager, team) => {
   document.body.appendChild(teamSection);
 
   // Write the HTML to a file
-  const fs = require('fs');
-  fs.writeFileSync('./manager.html', dom.serialize());
+return dom.serialize();
 };
-
 module.exports = generateHTML;
