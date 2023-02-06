@@ -1,6 +1,7 @@
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
+
 const generateHTML = (manager, team) => {
   // Create a new JSDOM instance
   const dom = new JSDOM(``);
@@ -24,7 +25,7 @@ const generateHTML = (manager, team) => {
   // Create an element for the team section
   const teamSection = document.createElement("div");
   teamSection.setAttribute("id", "team");
-
+  
   // Create elements for each team member
   team.forEach((member) => {
     const memberName = document.createElement("p");
@@ -63,3 +64,5 @@ const generateHTML = (manager, team) => {
   const fs = require('fs');
   fs.writeFileSync('./manager.html', dom.serialize());
 };
+
+module.exports = generateHTML;
