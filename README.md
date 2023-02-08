@@ -8,7 +8,7 @@
 
 # Learned how to use Inquirer to prompt the user for their email, id, and specific information based on their role with the company. Testing modules with Jest to ensure that all unit tests pass.
 
-# Video Link:
+# Video Link: https://app.castify.com/view/be65938b-9acf-4183-b6c8-ea71d0c622f1
 
 # Ryan Dong
 
